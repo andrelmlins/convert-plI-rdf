@@ -31,6 +31,22 @@ public class Chunk {
 	public String getId() {
 		return id;
 	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public ArrayList<String> getChunks() {
+		return chunks;
+	}
+
+	public ArrayList<String> getTokens() {
+		return tokens;
+	}
+
+	public ArrayList<String> getHeads() {
+		return heads;
+	}
 
 	public void setId(String id) {
 		this.id = id;

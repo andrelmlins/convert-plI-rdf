@@ -83,7 +83,7 @@ public class Compilador {
 		this.tokens.add(token);
 	}
 
-	public boolean classe(String name, String id){
+	private boolean classe(String name, String id){
 		if(name.equals("chunk")){
 			chunks.add(new Chunk(id));
 		} else if(name.equals("st")){
@@ -94,7 +94,7 @@ public class Compilador {
 		return true;
 	}
 	
-	public boolean voice(String id, String voice){
+	private boolean voice(String id, String voice){
 		if(this.sentences.contains(new Sentence(id))){
 			Sentence sentence = this.sentences.get(this.sentences.indexOf(new Sentence(id)));
 			sentence.setVoice(voice);
@@ -106,7 +106,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean hasChunk(String id, String chunk){
+	private boolean hasChunk(String id, String chunk){
 		if(this.sentences.contains(new Sentence(id))){
 			Sentence sentence = this.sentences.get(this.sentences.indexOf(new Sentence(id)));
 			sentence.addChunk(chunk);
@@ -118,7 +118,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean hasSucc(String id, String chunk1){
+	private boolean hasSucc(String id, String chunk1){
 		if(this.chunks.contains(new Chunk(id))){
 			Chunk chunk = this.chunks.get(this.chunks.indexOf(new Chunk(id)));
 			chunk.addChunk(chunk1);
@@ -130,7 +130,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean hasToken(String id, String token){
+	private boolean hasToken(String id, String token){
 		if(this.chunks.contains(new Chunk(id))){
 			Chunk chunk = this.chunks.get(this.chunks.indexOf(new Chunk(id)));
 			chunk.addToken(token);
@@ -142,7 +142,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean hasHead(String id, String token){
+	private boolean hasHead(String id, String token){
 		if(this.chunks.contains(new Chunk(id))){
 			Chunk chunk = this.chunks.get(this.chunks.indexOf(new Chunk(id)));
 			chunk.addHead(token);
@@ -154,7 +154,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean hasType(String id, String type){
+	private boolean hasType(String id, String type){
 		if(this.chunks.contains(new Chunk(id))){
 			Chunk chunk = this.chunks.get(this.chunks.indexOf(new Chunk(id)));
 			chunk.setType(type);
@@ -166,7 +166,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean pos(String id, String type){
+	private boolean pos(String id, String type){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setPos(type);
@@ -178,7 +178,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean type(String id, String type){
+	private boolean type(String id, String type){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setType(type);
@@ -190,7 +190,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean ckOt(String id, String chunk){
+	private boolean ckOt(String id, String chunk){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setChunk(chunk);
@@ -202,7 +202,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean ckTagOt(String id, String chunk){
+	private boolean ckTagOt(String id, String chunk){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setChunkOT(chunk);
@@ -214,7 +214,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean orth(String id, String chunk){
+	private boolean orth(String id, String chunk){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setOrth(chunk);
@@ -226,7 +226,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean ner(String id, String ner){
+	private boolean ner(String id, String ner){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setNer(ner);
@@ -238,7 +238,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean gpos(String id, String ner){
+	private boolean gpos(String id, String ner){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setGpos(ner);
@@ -250,7 +250,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean length(String id, String length){
+	private boolean length(String id, String length){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setLength(Integer.parseInt(length));
@@ -301,7 +301,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean bigPosBef(String id, String bigPosBef){
+	private boolean bigPosBef(String id, String bigPosBef){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setBigPosBef(bigPosBef);
@@ -313,7 +313,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean trigPosAft(String id, String trigPosAft){
+	private boolean trigPosAft(String id, String trigPosAft){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setTrigPosAft(trigPosAft);
@@ -325,7 +325,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean trigPosBef(String id, String trigPosBef){
+	private boolean trigPosBef(String id, String trigPosBef){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setTrigPosBef(trigPosBef);
@@ -337,7 +337,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean mtype(String id, String mtype){
+	private boolean mtype(String id, String mtype){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setMtype(mtype);
@@ -349,7 +349,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean subtype(String id, String subtype){
+	private boolean subtype(String id, String subtype){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setSubtype(subtype);
@@ -361,7 +361,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean next(String id, String token1){
+	private boolean next(String id, String token1){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setNext(token1);
@@ -373,7 +373,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean headpp(String id){
+	private boolean headpp(String id){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setHeadPP(true);
@@ -385,7 +385,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean headnp(String id){
+	private boolean headnp(String id){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setHeadNP(true);
@@ -397,7 +397,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean headvp(String id){
+	private boolean headvp(String id){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setHeadVP(true);
@@ -409,7 +409,7 @@ public class Compilador {
 		}
 	}
 	
-	public boolean fato(String name, String[] parametros){
+	private boolean fato(String name, String[] parametros){
 		boolean success = true;
 		switch(name){
 			case "chunk":
@@ -505,17 +505,17 @@ public class Compilador {
 		return success;
 	}
 	
-	public void changeSentence(Sentence s){
+	private void changeSentence(Sentence s){
 		this.sentences.remove(s);
 		this.sentences.add(s);
 	}
 	
-	public void changeChunk(Chunk c){
+	private void changeChunk(Chunk c){
 		this.chunks.remove(c);
 		this.chunks.add(c);
 	}
 	
-	public void changeToken(Token t){
+	private void changeToken(Token t){
 		this.tokens.remove(t);
 		this.tokens.add(t);
 	}

@@ -17,6 +17,10 @@ public class Sentence {
 		this.chunks.add(chunk);
 	}
 
+	public ArrayList<String> getChunks() {
+		return chunks;
+	}
+
 	public String getId() {
 		return id;
 	}
