@@ -59,4 +59,8 @@ public class Chunk {
 		return "Chunk [id=" + id + ", chunks=" + chunks + ", tokens=" + tokens
 				+ ", heads=" + heads + ", type=" + type + "]";
 	}
+	
+	public String string() {
+		return id+" -- "+chunks+" -- "+tokens+" -- "+heads+" -- "+type;
+	}
 }

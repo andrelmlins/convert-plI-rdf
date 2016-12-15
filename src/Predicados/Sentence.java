@@ -6,6 +6,7 @@ public class Sentence {
 	private String voice;
 	private String id;
 	private ArrayList<String> chunks;
+	private String text;
 	
 	public Sentence(String id) {
 		this.id = id;
@@ -28,6 +29,14 @@ public class Sentence {
 		return voice;
 	}
 
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
 	public void setVoice(String voice) {
 		this.voice = voice;
 	}
@@ -48,7 +57,10 @@ public class Sentence {
 
 	@Override
 	public String toString() {
-		return "Sentence [voice=" + voice + ", id=" + id + ", chunks=" + chunks
-				+ "]";
+		return "Sentence [voice=" + voice + ", id=" + id + ", chunks=" + chunks + ", text=" + text + "]";
+	}
+	
+	public String string() {
+		return id+" -- "+voice+" -- "+chunks+" -- "+text;
 	}
 }
