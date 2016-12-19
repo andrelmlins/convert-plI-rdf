@@ -5,13 +5,11 @@ import java.util.List;
 import java.util.Scanner;
 
 import Predicados.Chunk;
-import Predicados.Sentence;
 import Predicados.Token;
 
 
 public class Compilador {
 	private ArrayList<Chunk> chunks = new ArrayList<>();
-	private ArrayList<Sentence> sentences = new ArrayList<>();
 	private ArrayList<Token> tokens = new ArrayList<>();
 	
 	private List<String> facts = new ArrayList<>();
@@ -63,20 +61,12 @@ public class Compilador {
 		return chunks;
 	}
 
-	public ArrayList<Sentence> getSentences() {
-		return sentences;
-	}
-
 	public ArrayList<Token> getTokens() {
 		return tokens;
 	}
 	
 	public void addChunk(Chunk chunk) {
 		this.chunks.add(chunk);
-	}
-
-	public void addSentence(Sentence sentence) {
-		this.sentences.add(sentence);
 	}
 
 	public void addToken(Token token) {
@@ -86,38 +76,12 @@ public class Compilador {
 	private boolean classe(String name, String id){
 		if(name.equals("chunk")){
 			chunks.add(new Chunk(id));
-		} else if(name.equals("st")){
-			sentences.add(new Sentence(id));
 		} else if(name.equals("token")){
 			tokens.add(new Token(id));
 		}
 		return true;
 	}
-	
-	private boolean voice(String id, String voice){
-		if(this.sentences.contains(new Sentence(id))){
-			Sentence sentence = this.sentences.get(this.sentences.indexOf(new Sentence(id)));
-			sentence.setVoice(voice);
-			this.changeSentence(sentence);
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	private boolean hasChunk(String id, String chunk){
-		if(this.sentences.contains(new Sentence(id))){
-			Sentence sentence = this.sentences.get(this.sentences.indexOf(new Sentence(id)));
-			sentence.addChunk(chunk);
-			this.changeSentence(sentence);
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
+
 	private boolean hasSucc(String id, String chunk1){
 		if(this.chunks.contains(new Chunk(id))){
 			Chunk chunk = this.chunks.get(this.chunks.indexOf(new Chunk(id)));
@@ -255,19 +219,6 @@ public class Compilador {
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setLength(Integer.parseInt(length));
 			this.changeToken(token);
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	public boolean text(String id, String text){
-		text = text.replaceAll("\"", "");
-		if(this.sentences.contains(new Sentence(id))){
-			Sentence sentence = this.sentences.get(this.sentences.indexOf(new Sentence(id)));
-			sentence.setText(text);
-			this.changeSentence(sentence);
 			return true;
 		}
 		else {
@@ -415,17 +366,8 @@ public class Compilador {
 			case "chunk":
 				success = classe(name,parametros[0]);
 				break;
-			case "st":
-				success = classe(name,parametros[0]);
-				break;
 			case "token":
 				success = classe(name,parametros[0]);
-				break;
-			case "st_hasVoice":
-				success = voice(parametros[0],parametros[1]);
-				break;
-			case "s_hasChunk":
-				success = hasChunk(parametros[0],parametros[1]);
 				break;
 			case "ck_hasSucc":
 				success = hasSucc(parametros[0],parametros[1]);
@@ -462,9 +404,6 @@ public class Compilador {
 				break;
 			case "t_length":
 				success = length(parametros[0],parametros[1]);
-				break;
-			case "st_hasText":
-				success = text(parametros[0],parametros[1]);
 				break;
 			case "t_stem":
 				success = stem(parametros[0],parametros[1]);
@@ -503,11 +442,6 @@ public class Compilador {
 				break;
 		}
 		return success;
-	}
-	
-	private void changeSentence(Sentence s){
-		this.sentences.remove(s);
-		this.sentences.add(s);
 	}
 	
 	private void changeChunk(Chunk c){
