@@ -39,13 +39,13 @@ public class Main {
 	}
 	
 	public static void archive() throws IOException{
-		PrintStream pw = new PrintStream(new BufferedOutputStream(new FileOutputStream(new File("tokens.rdf"), true)));
+		PrintStream pw = new PrintStream(new BufferedOutputStream(new FileOutputStream(new File("tokens05.rdf"), true)));
 		for(Token t : c.getTokens()){
 			pw.println(t.string());
 		}
 		pw.close();
 		
-		pw = new PrintStream(new BufferedOutputStream(new FileOutputStream(new File("chunks.rdf"), true)));
+		pw = new PrintStream(new BufferedOutputStream(new FileOutputStream(new File("chunks05.rdf"), true)));
 		for(Chunk ch : c.getChunks()){
 			pw.println(ch.string());
 		}

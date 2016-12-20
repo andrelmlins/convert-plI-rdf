@@ -8,6 +8,7 @@ public class Chunk {
 	private ArrayList<String> tokens;
 	private ArrayList<String> heads;
 	private String type;
+	private String posRelPred;
 	
 	public Chunk(String id) {
 		this.id = id;
@@ -54,6 +55,14 @@ public class Chunk {
 	
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getPosRelPred() {
+		return posRelPred;
+	}
+
+	public void setPosRelPred(String posRelPred) {
+		this.posRelPred = posRelPred;
 	}
 
 	@Override

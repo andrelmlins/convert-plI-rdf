@@ -1,5 +1,7 @@
 package Predicados;
 
+import java.util.ArrayList;
+
 public class Token {
 	private String id;
 	private String type;
@@ -10,6 +12,7 @@ public class Token {
 	private String ner;
 	private String gpos;
 	private String next;
+	private String neType;
 	private int length;
 	
 	private String stem;
@@ -22,6 +25,9 @@ public class Token {
 	private boolean headPP;
 	private boolean headNP;
 	private boolean headVP;
+	private boolean root;
+	
+	private ArrayList<Dependency> dep = new ArrayList<>();
 	
 	public Token(String id) {
 		this.id = id;
@@ -56,7 +62,13 @@ public class Token {
 		this.headVP = headVP;
 	}
 
-
+	public void addDep(Dependency d){
+		this.dep.add(d);
+	}
+	
+	public ArrayList<Dependency> getDep(){
+		return dep;
+	}
 
 	public String getId() {
 		return id;
@@ -64,6 +76,14 @@ public class Token {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public boolean isRoot() {
+		return root;
+	}
+
+	public void setRoot(boolean root) {
+		this.root = root;
 	}
 
 	public String getType() {
@@ -216,6 +236,14 @@ public class Token {
 
 	public void setHeadVP(boolean headVP) {
 		this.headVP = headVP;
+	}
+
+	public String getNeType() {
+		return neType;
+	}
+
+	public void setNeType(String neType) {
+		this.neType = neType;
 	}
 
 	@Override

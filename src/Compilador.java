@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import Predicados.Chunk;
+import Predicados.Dependency;
 import Predicados.Token;
 
 
@@ -16,17 +17,19 @@ public class Compilador {
 	private List<String> factsNoReads = new ArrayList<>();
 	
 	public void run() throws IOException{
-		Scanner s = new Scanner(new File("CorpusACE2004_FULL.pl"));
+		Scanner s = new Scanner(new File("CorpusACE2005_FULL.pl"));
 		
 		while(s.hasNext()){
 			String line = s.nextLine().replaceAll(" ","");
 			facts.add(line);
 		}
 		s.close();
-		
+		int i=0;
 		while(this.facts.size()!=0){
 			for(String fact : this.facts){
 				if(!fact.equals("") && fact.charAt(0)!='%'){
+					i++;
+					if(i%10000==0) System.out.println(i);
 					String[] split = fact.split("[(]");
 					
 					String name = split[0];
@@ -39,10 +42,24 @@ public class Compilador {
 			this.facts.clear();
 			this.facts.addAll(this.factsNoReads);
 			this.factsNoReads.clear();
+			System.out.println(this.facts.size());
 		}
 		s.close();
-		
-		s = new Scanner(new File("next_ALL_ACE2004.pl"));
+		System.out.println("next");
+		s = new Scanner(new File("next_ALL_ACE2005.pl"));
+		while(s.hasNext()){
+			String fact = s.nextLine().replaceAll(" ","");
+			
+			if(!fact.equals("") && fact.charAt(0)!='%'){
+				String[] split = fact.split("[(]");
+				
+				String name = split[0];
+				String[] parametros = split[1].replace(")","").replace(".","").split("[,]");
+				fato(name,parametros);
+			}
+		}
+		System.out.println("Dependency");
+		s = new Scanner(new File("dependency_ACE_2005.pl"));
 		while(s.hasNext()){
 			String fact = s.nextLine().replaceAll(" ","");
 			
@@ -122,6 +139,18 @@ public class Compilador {
 		if(this.chunks.contains(new Chunk(id))){
 			Chunk chunk = this.chunks.get(this.chunks.indexOf(new Chunk(id)));
 			chunk.setType(type);
+			this.changeChunk(chunk);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	private boolean relPred(String id, String relPred){
+		if(this.chunks.contains(new Chunk(id))){
+			Chunk chunk = this.chunks.get(this.chunks.indexOf(new Chunk(id)));
+			chunk.setPosRelPred(relPred);
 			this.changeChunk(chunk);
 			return true;
 		}
@@ -324,6 +353,30 @@ public class Compilador {
 		}
 	}
 	
+	private boolean ne_type(String id, String type){
+		if(this.tokens.contains(new Token(id))){
+			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
+			token.setNeType(type);
+			this.changeToken(token);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	private boolean dep(String dep, String token1, String token2){
+		if(this.tokens.contains(new Token(token1))){
+			Token token = this.tokens.get(this.tokens.indexOf(new Token(token1)));
+			token.addDep(new Dependency(dep,token2));
+			this.changeToken(token);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	private boolean headpp(String id){
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
@@ -352,6 +405,18 @@ public class Compilador {
 		if(this.tokens.contains(new Token(id))){
 			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
 			token.setHeadVP(true);
+			this.changeToken(token);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	private boolean root(String id){
+		if(this.tokens.contains(new Token(id))){
+			Token token = this.tokens.get(this.tokens.indexOf(new Token(id)));
+			token.setRoot(true);
 			this.changeToken(token);
 			return true;
 		}
@@ -438,7 +503,20 @@ public class Compilador {
 			case "t_next":
 				success = next(parametros[0],parametros[1]);
 				break;
+			case "t_ne_type":
+				success = ne_type(parametros[0],parametros[1]);
+				break;
+			case "ck_posRelPred":
+				success = relPred(parametros[0],parametros[1]);
+				break;
+			case "t_hasDep":
+				success = dep(parametros[0],parametros[1],parametros[2]);
+				break;
+			case "t_root":
+				success = root(parametros[0]);
+				break;
 			default:
+				System.out.println(name);
 				break;
 		}
 		return success;
