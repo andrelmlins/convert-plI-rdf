@@ -1,9 +1,12 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import Comparator.ChunkComparator;
+import Comparator.TokenComparator;
 import Predicados.Chunk;
 import Predicados.Dependency;
 import Predicados.Token;
@@ -17,7 +20,7 @@ public class Compilador {
 	private List<String> factsNoReads = new ArrayList<>();
 	
 	public void run() throws IOException{
-		Scanner s = new Scanner(new File("CorpusACE2005_FULL.pl"));
+		Scanner s = new Scanner(new File("CorpusACE2004_FULL.pl"));
 		
 		while(s.hasNext()){
 			String line = s.nextLine().replaceAll(" ","");
@@ -46,7 +49,7 @@ public class Compilador {
 		}
 		s.close();
 		System.out.println("next");
-		s = new Scanner(new File("next_ALL_ACE2005.pl"));
+		s = new Scanner(new File("next_ALL_ACE2004.pl"));
 		while(s.hasNext()){
 			String fact = s.nextLine().replaceAll(" ","");
 			
@@ -59,7 +62,7 @@ public class Compilador {
 			}
 		}
 		System.out.println("Dependency");
-		s = new Scanner(new File("dependency_ACE_2005.pl"));
+		s = new Scanner(new File("dependency_ACE_2004.pl"));
 		while(s.hasNext()){
 			String fact = s.nextLine().replaceAll(" ","");
 			
@@ -72,6 +75,9 @@ public class Compilador {
 			}
 		}
 		s.close();
+		
+		Collections.sort(this.chunks,new ChunkComparator());
+		Collections.sort(this.tokens,new TokenComparator());
 	}
 	
 	public ArrayList<Chunk> getChunks() {

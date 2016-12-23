@@ -1,12 +1,4 @@
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
-
-import Predicados.Chunk;
-import Predicados.Token;
-
 
 public class Main {
 	
@@ -22,7 +14,6 @@ public class Main {
 	public static void compilar(){
 		try {
 			c.run();
-			//archive();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,19 +27,5 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	public static void archive() throws IOException{
-		PrintStream pw = new PrintStream(new BufferedOutputStream(new FileOutputStream(new File("tokens05.rdf"), true)));
-		for(Token t : c.getTokens()){
-			pw.println(t.string());
-		}
-		pw.close();
-		
-		pw = new PrintStream(new BufferedOutputStream(new FileOutputStream(new File("chunks05.rdf"), true)));
-		for(Chunk ch : c.getChunks()){
-			pw.println(ch.string());
-		}
-		pw.close();
 	}
 }
